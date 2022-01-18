@@ -13,6 +13,8 @@ from .jumpi import *
 from .push import *
 from .block_coinbase import *
 from .caller import *
+from .callvalue import *
+from .calldatasize import *
 
 
 EXECUTION_STATE_IMPL: Dict[ExecutionState, Callable] = {
@@ -21,6 +23,8 @@ EXECUTION_STATE_IMPL: Dict[ExecutionState, Callable] = {
     ExecutionState.EndBlock: end_block,
     ExecutionState.ADD: add,
     ExecutionState.CALLER: caller,
+    ExecutionState.CALLVALUE: callvalue,
+    ExecutionState.CALLDATASIZE: calldatasize,
     ExecutionState.COINBASE: coinbase,
     ExecutionState.JUMP: jump,
     ExecutionState.JUMPI: jumpi,

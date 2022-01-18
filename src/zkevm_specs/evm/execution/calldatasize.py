@@ -1,19 +1,19 @@
 from ..instruction import Instruction, Transition
 from ..table import CallContextFieldTag
 from ..opcode import Opcode
-from ...util.param import N_BYTES_ACCOUNT_ADDRESS
+from ...util.param import N_BYTES_U64
 
 
-def caller(instruction: Instruction):
+def calldatasize(instruction: Instruction):
     opcode = instruction.opcode_lookup(True)
-    instruction.constrain_equal(opcode, Opcode.CALLER)
+    instruction.constrain_equal(opcode, Opcode.CALLDATASIZE)
 
-    # check [rw_table, call_context] table for caller address and compare with
-    # stack top after push
+    # check [rw_table, call_context] table for call data length and compare
+    # against stack top after push.
     instruction.constrain_equal(
         instruction.int_to_rlc(
-            instruction.call_context_lookup(CallContextFieldTag.CallerAddress),
-            N_BYTES_ACCOUNT_ADDRESS,
+            instruction.call_context_lookup(CallContextFieldTag.CallDataLength),
+            N_BYTES_U64,
         ),
         instruction.stack_push(),
     )
@@ -24,3 +24,4 @@ def caller(instruction: Instruction):
         program_counter=Transition.delta(1),
         stack_pointer=Transition.delta(-1),
     )
+

@@ -1,20 +1,16 @@
 from ..instruction import Instruction, Transition
 from ..table import CallContextFieldTag
 from ..opcode import Opcode
-from ...util.param import N_BYTES_ACCOUNT_ADDRESS
 
 
-def caller(instruction: Instruction):
+def callvalue(instruction: Instruction):
     opcode = instruction.opcode_lookup(True)
-    instruction.constrain_equal(opcode, Opcode.CALLER)
+    instruction.constrain_equal(opcode, Opcode.CALLVALUE)
 
-    # check [rw_table, call_context] table for caller address and compare with
-    # stack top after push
+    # check [rw_table, call_context] table for call value and compare against
+    # stack top after push.
     instruction.constrain_equal(
-        instruction.int_to_rlc(
-            instruction.call_context_lookup(CallContextFieldTag.CallerAddress),
-            N_BYTES_ACCOUNT_ADDRESS,
-        ),
+        instruction.call_context_lookup(CallContextFieldTag.Value),
         instruction.stack_push(),
     )
 
