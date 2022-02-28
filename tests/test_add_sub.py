@@ -2,7 +2,7 @@ import pytest
 
 from zkevm_specs.encoding import u256_to_u8s, u8s_to_u256
 from zkevm_specs.opcode import check_add, check_sub, SignTable, compare
-from common import NASTY_AB_VALUES
+from tests.common import NASTY_AB_VALUES
 
 
 def test_check_add_basic():

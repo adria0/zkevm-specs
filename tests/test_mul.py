@@ -4,7 +4,7 @@ import pytest
 
 from zkevm_specs.encoding import u256_to_u8s, U256, u8s_to_u64s
 from zkevm_specs.opcode.mul import check_mul
-from common import NASTY_AB_VALUES
+from tests.common import NASTY_AB_VALUES
 
 
 @pytest.mark.parametrize("a,b", NASTY_AB_VALUES)
